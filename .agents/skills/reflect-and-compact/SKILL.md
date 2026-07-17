@@ -1,6 +1,6 @@
 ---
 name: reflect-and-compact
-description: Create a fast workspace checkpoint before compaction. Use only when explicitly asked to checkpoint, preserve context, update REPOS.md or MEMORY.md, improve workflow, or prepare for `/compact`.
+description: Create a fast workspace checkpoint before compaction. Use only when explicitly asked to checkpoint, preserve context, update the repository inventory or MEMORY.md, improve workflow, or prepare for `/compact`.
 ---
 
 # Reflect And Compact
@@ -9,7 +9,13 @@ Create a concise, trustworthy continuation checkpoint. Execute directly; do not 
 
 ## Inspect
 
-Read applicable `AGENTS.md`, root `REPOS.md`, and root `MEMORY.md`.
+Read applicable `AGENTS.md` and root `MEMORY.md`.
+
+Treat `workspace.local.toml` as the repository inventory source of truth. Before
+reading `REPOS.md`, confirm that the manifest and `scripts/render-repos` exist,
+then run `scripts/render-repos` from the workspace root. If either file is
+missing or rendering fails, stop and report the problem clearly. Read the
+manifest and generated `REPOS.md` only after rendering succeeds.
 
 Use the conversation, existing handoffs, `git status`, relevant diffs, changed
 files, and recent checks to determine:
@@ -28,8 +34,13 @@ workflow improvements.
 
 Persist only reusable information:
 
-- `REPOS.md`: stable repository inventory, commands, and operational notes
+- `workspace.local.toml`: stable repository inventory, commands, and
+  operational notes
 - `MEMORY.md`: active priorities, durable facts, gotchas, and open follow-ups
+
+Never edit generated `REPOS.md` directly. After changing
+`workspace.local.toml`, run `scripts/render-repos` again. If rendering fails,
+stop and report the failure.
 
 Keep edits concise, evidence-backed, deduplicated, and current. Exclude raw
 logs, routine output, temporary details, speculation, secrets, and task history.
@@ -42,7 +53,8 @@ warranted, include the exact proposal in the handoff.
 Review final diffs and reread changed workspace documents. Confirm that:
 
 - persisted facts are supported
-- `REPOS.md` and `MEMORY.md` retain separate roles
+- `REPOS.md` reflects `workspace.local.toml`
+- repository inventory and `MEMORY.md` retain separate roles
 - no transient or unrelated content was added
 - `AGENTS.md` remained unchanged unless approved
 - the handoff is sufficient to continue
@@ -63,8 +75,9 @@ Return a compact handoff with:
 - `Repository, memory, and workflow updates`
 
 Under reflection, include what went well, what did not, and what can improve.
-Under updates, report whether `REPOS.md`, `MEMORY.md`, and `AGENTS.md` changed,
-list changed workspace documents, and include any pending `AGENTS.md` proposal.
+Under updates, report whether `workspace.local.toml`, generated `REPOS.md`,
+`MEMORY.md`, and `AGENTS.md` changed, list changed workspace documents, and
+include any pending `AGENTS.md` proposal.
 
 Omit raw commands, logs, test output, and exploration history.
 

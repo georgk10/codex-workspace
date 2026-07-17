@@ -1,0 +1,6 @@
+interface:
+  display_name: "Reflect and Compact"
+  short_description: "Preserve durable context, then compact"
+  default_prompt: "Use $reflect-and-compact to validate REPOS.md and MEMORY.md, reflect candidly on the workflow, preserve durable context, and prepare for compaction."
+policy:
+  allow_implicit_invocation: false

@@ -1,0 +1,72 @@
+#!/usr/bin/env python3
+"""Render the local repository inventory from workspace.local.toml."""
+
+from pathlib import Path
+import ast
+
+try:
+    import tomllib
+except ModuleNotFoundError:  # Python 3.10
+    tomllib = None
+
+
+ROOT = Path(__file__).resolve().parent.parent
+MANIFEST = ROOT / "workspace.local.toml"
+OUTPUT = ROOT / "REPOS.md"
+
+
+def load_repositories() -> list[dict[str, str]]:
+    """Load repository entries without requiring third-party packages."""
+    if not MANIFEST.exists():
+        raise SystemExit("workspace.local.toml is missing; run scripts/init-workspace")
+
+    if tomllib is not None:
+        with MANIFEST.open("rb") as manifest_file:
+            return tomllib.load(manifest_file).get("repositories", [])
+
+    repositories: list[dict[str, str]] = []
+    for raw_line in MANIFEST.read_text(encoding="utf-8").splitlines():
+        line = raw_line.strip()
+        if not line or line.startswith("#"):
+            continue
+        if line == "[[repositories]]":
+            repositories.append({})
+            continue
+        key, separator, value = line.partition("=")
+        if not repositories or not separator:
+            raise SystemExit(f"Unsupported manifest line: {raw_line}")
+        parsed_value = ast.literal_eval(value.strip())
+        if not isinstance(parsed_value, str):
+            raise SystemExit("Repository fields must be strings")
+        repositories[-1][key.strip()] = parsed_value
+
+    return repositories
+
+
+def main() -> None:
+    """Render REPOS.md from the local workspace manifest."""
+    repositories = load_repositories()
+
+    lines = ["# Repositories", ""]
+    if not repositories:
+        lines.extend(["No repositories are configured.", ""])
+
+    for repository in repositories:
+        name = repository["name"]
+        path = repository["path"]
+        lines.extend([f"## {name}", f"Path: {path}"])
+        for key, label in (
+            ("remote", "Remote"),
+            ("purpose", "Purpose"),
+            ("test_command", "Test command"),
+            ("notes", "Notes"),
+        ):
+            if value := repository.get(key):
+                lines.append(f"{label}: {value}")
+        lines.append("")
+
+    OUTPUT.write_text("\n".join(lines), encoding="utf-8")
+
+
+if __name__ == "__main__":
+    main()

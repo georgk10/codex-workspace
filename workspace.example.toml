@@ -1,0 +1,16 @@
+# Copy this file to workspace.local.toml and replace these fictional examples.
+
+[[repositories]]
+name = "example-api"
+path = "repos/example-api"
+remote = "git@github.com:example-org/example-api.git"
+purpose = "Example HTTP API service."
+test_command = ".venv/bin/python -m pytest"
+notes = "Uses the project-local Python environment."
+
+[[repositories]]
+name = "example-web"
+path = "repos/example-web"
+remote = "git@github.com:example-org/example-web.git"
+purpose = "Example browser application."
+test_command = "npm test"

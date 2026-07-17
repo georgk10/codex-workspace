@@ -1,0 +1,19 @@
+#!/bin/sh
+set -eu
+
+workspace_dir=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+cd "$workspace_dir"
+
+mkdir -p repos
+
+if [ ! -f workspace.local.toml ]; then
+    cp workspace.example.toml workspace.local.toml
+fi
+
+if [ ! -f MEMORY.md ]; then
+    cp templates/MEMORY.md MEMORY.md
+fi
+
+scripts/render-repos
+
+printf 'Workspace initialized. Edit workspace.local.toml for your repositories.\n'

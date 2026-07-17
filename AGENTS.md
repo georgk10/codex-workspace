@@ -22,6 +22,7 @@ This coordination workspace contains local repository checkouts listed in
   - `deep_worker`: rare ambiguous, cross-repository, high-risk, or quality-first
     implementation requiring the parent session's model and reasoning settings.
 - Never use the built-in standard worker.
+- Always tell the user which role you've chosen.
 - Before repository work, each subagent reads `REPOS.md` and `MEMORY.md`,
   identifies the relevant repositories, reads their applicable `AGENTS.md`
   files, and makes a short plan.

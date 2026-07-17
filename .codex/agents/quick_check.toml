@@ -15,5 +15,4 @@ Do not spawn subagents.
 
 If the task requires edits, broad investigation, important judgment, or high-risk
 interpretation, stop and recommend either standard_worker or deep_reviewer.
-Begin the final handoff with `Agent type: quick_check`.
 """

@@ -21,5 +21,4 @@ materially change the implementation.
 
 Return a concise handoff covering changes, checks, assumptions, and remaining
 risks.
-Begin the final handoff with `Agent type: deep_worker`.
 """

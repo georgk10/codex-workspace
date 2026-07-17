@@ -18,5 +18,4 @@ no actionable findings remain. Do not spawn subagents.
 
 If implementation is requested after the review, return the findings to the
 parent so it can assign one worker with clear scope; do not begin editing.
-Begin the final handoff with `Agent type: deep_reviewer`.
 """

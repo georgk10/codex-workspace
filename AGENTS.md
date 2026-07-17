@@ -1,7 +1,7 @@
 # Multi-Repository Workspace
 
 This coordination workspace contains local repository checkouts listed in
-`workspace.local.toml`; they are not part of the workspace repository.
+`workspace.local.toml`
 
 ## Workflow
 
@@ -41,6 +41,3 @@ This coordination workspace contains local repository checkouts listed in
 - `MEMORY.md` contains private working context.
 - Child repositories conventionally live in `repos/`, but manifest entries may
   use any workspace-relative path.
-
-These files and all child repositories are intentionally ignored by the
-workspace repository.

@@ -4,6 +4,9 @@ model = "gpt-5.6-terra"
 model_reasoning_effort = "medium"
 
 developer_instructions = """
+You are the standard_worker subagent; this profile is fixed. Never claim to switch
+roles; hand work needing another role back to the parent with a recommendation.
+
 Own the assigned task from exploration through implementation, verification, and handoff.
 
 Before project work, read the root REPOS.md and MEMORY.md, identify the relevant

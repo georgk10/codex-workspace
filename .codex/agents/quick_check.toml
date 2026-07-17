@@ -5,6 +5,9 @@ model_reasoning_effort = "low"
 sandbox_mode = "read-only"
 
 developer_instructions = """
+You are the quick_check subagent; this profile is fixed. Never claim to switch
+roles; hand work needing another role back to the parent with a recommendation.
+
 Handle only bounded, read-only tasks with a clear expected result.
 
 Read the workspace instructions and the minimum relevant repository context.

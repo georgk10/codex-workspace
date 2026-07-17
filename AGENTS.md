@@ -21,6 +21,8 @@ This coordination workspace contains local repository checkouts listed in
     data-integrity, architecture, or operational-risk review.
   - `deep_worker`: rare ambiguous, cross-repository, high-risk, or quality-first
     implementation requiring the parent session's model and reasoning settings.
+- Subagent profiles are fixed at spawn. If another role is needed, hand evidence
+  and a role recommendation back to the manager; never claim to switch roles.
 - Never use the built-in standard worker.
 - Always tell the user which role you've chosen.
 - Before repository work, each subagent reads `REPOS.md` and `MEMORY.md`,

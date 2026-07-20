@@ -5,84 +5,71 @@ description: Create a fast workspace checkpoint before compaction. Use only when
 
 # Reflect And Compact
 
-Create a concise, trustworthy continuation checkpoint. Execute directly; do not delegate.
+Create a concise, trustworthy continuation checkpoint. Do not delegate.
 
 ## Inspect
 
 Read applicable `AGENTS.md` and root `MEMORY.md`.
 
-Treat `workspace.local.toml` as the repository inventory source of truth. Before
-reading `REPOS.md`, confirm that the manifest and `scripts/render-repos` exist,
-then run `scripts/render-repos` from the workspace root. If either file is
-missing or rendering fails, stop and report the problem clearly. Read the
-manifest and generated `REPOS.md` only after rendering succeeds.
+Treat `workspace.local.toml` as inventory source of truth. Confirm it and
+`scripts/render-repos` exist, then render from the workspace root before reading
+the manifest and generated `REPOS.md`. Stop and report missing files or render
+failure.
 
-Use the conversation, existing handoffs, `git status`, relevant diffs, changed
-files, and recent checks to determine:
+Use the conversation, handoffs, Git status, relevant diffs, changed files, and
+recent checks to establish the objective, decisions, constraints, validated
+work, current state, blockers, and next action. Prefer diffs and summaries;
+inspect other evidence only to verify material claims. Record no unverified
+claims.
 
-- objective, decisions, and constraints
-- completed and validated work
-- current state, blockers, and next action
+## Persist
 
-Prefer diffs and summaries. Inspect logs, artifacts, or unchanged files only
-when needed to verify a material claim. Do not record unverified claims.
+Briefly capture successes, failures or uncertainty, and concrete workflow
+improvements. Persist only reusable information:
 
-## Reflect and Persist
-
-Briefly identify what went well, what failed or remains uncertain, and concrete
-workflow improvements.
-
-Persist only reusable information:
-
-- `workspace.local.toml`: stable repository inventory, commands, and
-  operational notes
+- `workspace.local.toml`: stable inventory, commands, and operational notes
 - `MEMORY.md`: active priorities, durable facts, gotchas, and open follow-ups
 
-Never edit generated `REPOS.md` directly. After changing
-`workspace.local.toml`, run `scripts/render-repos` again. If rendering fails,
-stop and report the failure.
+Never edit generated `REPOS.md` directly. Rerender after a manifest change; stop
+and report failure. Keep edits concise, supported, deduplicated, and current.
+Exclude raw logs, routine output, temporary details, speculation, secrets, and
+task history.
 
-Keep edits concise, evidence-backed, deduplicated, and current. Exclude raw
-logs, routine output, temporary details, speculation, secrets, and task history.
+Enforce a strict 100-line maximum for `MEMORY.md`; count before and after
+editing. If over budget, prioritize active risks and next actions, then durable
+facts and gotchas. Compact related details and remove stale, resolved,
+redundant, or lower-priority material until it fits. Never truncate blindly.
 
 Do not edit `AGENTS.md` without explicit approval. When a reusable rule is
 warranted, include the exact proposal in the handoff.
 
 ## Validate
 
-Review final diffs and reread changed workspace documents. Confirm that:
+Review final diffs, reread changed workspace documents, and confirm:
 
-- persisted facts are supported
-- `REPOS.md` reflects `workspace.local.toml`
-- repository inventory and `MEMORY.md` retain separate roles
-- no transient or unrelated content was added
+- facts are supported; no transient or unrelated content was added
+- `REPOS.md` reflects the manifest; inventory and memory retain separate roles
+- `MEMORY.md` has at most 100 lines
 - `AGENTS.md` remained unchanged unless approved
-- the handoff is sufficient to continue
+- the handoff supports immediate continuation
 
 Do not rerun broad tests solely for the checkpoint.
 
 ## Handoff
 
-Return a compact handoff with:
+Return a compact handoff with these sections: `Objective`; `Decisions and
+constraints`; `Completed`; `Validation`; `Current state`; `Open items and next
+step`; `Workflow self-reflection`; and `Repository, memory, and workflow
+updates`.
 
-- `Objective`
-- `Decisions and constraints`
-- `Completed`
-- `Validation`
-- `Current state`
-- `Open items and next step`
-- `Workflow self-reflection`
-- `Repository, memory, and workflow updates`
-
-Under reflection, include what went well, what did not, and what can improve.
-Under updates, report whether `workspace.local.toml`, generated `REPOS.md`,
-`MEMORY.md`, and `AGENTS.md` changed, list changed workspace documents, and
-include any pending `AGENTS.md` proposal.
+In reflection, cover what went well, what did not, and improvements. In updates,
+state whether the manifest, generated `REPOS.md`, `MEMORY.md`, and `AGENTS.md`
+changed; list changed workspace documents and any pending `AGENTS.md` proposal.
 
 Omit raw commands, logs, test output, and exploration history.
 
-Use a compaction control only when explicitly available. Otherwise do not claim
-compaction occurred or run `/compact` in a shell.
+Use a compaction control only when explicitly available. Otherwise, neither
+claim compaction occurred nor run `/compact` in a shell.
 
 End with:
 

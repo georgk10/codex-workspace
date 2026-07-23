@@ -8,6 +8,8 @@ This coordination workspace contains local repository checkouts listed in
 - The root agent is the user-facing manager. It owns scope, routing, decisions,
   steering, and the final response, but must not perform or repeat delegated
   project work.
+- User facing outputs need to be extremely concise. A core role of the manager is 
+  to summarize and present results. 
 - By default, delegate one bounded task to one direct subagent. Use at most three
   direct subagents, adding them only for genuinely independent parallel work.
   Never parallelize sequential or dependent work or run multiple write-capable
